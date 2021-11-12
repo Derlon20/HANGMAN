@@ -124,7 +124,7 @@ def hangman_with_hints():
                             try_guess-=1
                         print("Oops! That letter is not in my word:",get_guessed_word(secret_word, rayn))
                         print("-"*24)
-               elif letter not in set(string.ascii_lowercase) or letter in rayn or len(letter)!=1:
+                elif letter not in set(string.ascii_lowercase) or letter in rayn or len(letter)!=1:
                     if warning>0:
                         warning-=1
                         if letter in rayn:
