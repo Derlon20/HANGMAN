@@ -124,23 +124,21 @@ def hangman_with_hints():
                             try_guess-=1
                         print("Oops! That letter is not in my word:",get_guessed_word(secret_word, rayn))
                         print("-"*24)
-                elif letter not in set(string.ascii_lowercase) or letter in rayn or len(letter)!=1:
+               elif letter not in set(string.ascii_lowercase) or letter in rayn or len(letter)!=1:
                     if warning>0:
                         warning-=1
                         if letter in rayn:
-                            warn="You've already guessed that letter"
+                            warn=f"You've already guessed that letter. You have {warning} warnings left:"
                         else:
-                            warn="That is not a valid letter."
-                        print("Oops!", warn,"You have",warning, "warnings left:",get_guessed_word(secret_word, rayn))
-                        print("-"*24)
+                            warn=f"That is not a valid letter. You have {warning} warnings left:"
                     elif warning==0:
                         try_guess-=1
                         if letter in rayn:
-                            warn="You've already guessed that letter"
+                            warn="You've already guessed that letter. You have no warnings left, so you lose one guess:"
                         else:
-                            warn="That is not a valid letter."
-                        print("Oops!",warn,"You have no warnings left, so you lose one guess:",get_guessed_word(secret_word, rayn))
-                        print("-"*24)
+                            warn="That is not a valid letter. You have no warnings left, so you lose one guess:"
+                    print("Oops!",warn,get_guessed_word(secret_word, rayn))
+                    print("-"*24)
             if try_guess<=0 or is_word_guessed(secret_word, rayn)==True:
                 break
         if is_word_guessed(secret_word, rayn)==True and try_guess>0:
