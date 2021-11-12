@@ -65,7 +65,7 @@ def match_with_gaps(my_word, other_word):
         if let.isalpha():
                 if kitty[timing]!=other_word[timing]:
                     return False
-                timing+=1
+        timing+=1
     return True
 
 def show_possible_matches(my_word):
