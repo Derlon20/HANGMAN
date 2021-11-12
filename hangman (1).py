@@ -63,9 +63,8 @@ def match_with_gaps(my_word, other_word):
         return False
     for let in kitty:
         if let.isalpha():
-            if kitty.find(let)!=other_word.find(let):
-                return False
-            else:
+                if kitty[timing]!=other_word[timing]:
+                    return False
                 timing+=1
     return True
 
@@ -76,6 +75,15 @@ def show_possible_matches(my_word):
             match.append(guest)
     mathcy=" ".join(match)
     return mathcy
+
+def check_warning(warning, try_guess):
+    if warning>0:
+        warning-=1
+        alert=f"You have {warning} warnings left:"
+    elif warning==0:
+        try_guess-=1
+        alert="You have no warnings left, so you lose one guess:"
+    return (warning, try_guess, alert)
 
 def revanche():
     print("="*24)
@@ -91,9 +99,9 @@ def revanche():
         raise SystemExit
 
 def hangman_with_hints():
-    secret_word=choose_word(wordlist)
-    #secret_word="app"
-    #print(secret_word)
+    #secret_word=choose_word(wordlist)
+    secret_word="revering"
+    print(secret_word)
     print("I am thinking of a word that is", len(secret_word),"letters long.")
     print("You have 3 warnings left.")
     slot = list(secret_word.lower())
@@ -125,19 +133,14 @@ def hangman_with_hints():
                         print("Oops! That letter is not in my word:",get_guessed_word(secret_word, rayn))
                         print("-"*24)
                 elif letter not in set(string.ascii_lowercase) or letter in rayn or len(letter)!=1:
-                    if warning>0:
-                        warning-=1
-                        if letter in rayn:
-                            warn=f"You've already guessed that letter. You have {warning} warnings left:"
-                        else:
-                            warn=f"That is not a valid letter. You have {warning} warnings left:"
-                    elif warning==0:
-                        try_guess-=1
-                        if letter in rayn:
-                            warn="You've already guessed that letter. You have no warnings left, so you lose one guess:"
-                        else:
-                            warn="That is not a valid letter. You have no warnings left, so you lose one guess:"
-                    print("Oops!",warn,get_guessed_word(secret_word, rayn))
+                    check=check_warning(warning, try_guess)
+                    if letter in rayn:
+                        warn="You've already guessed that letter."
+                    else:
+                        warn="That is not a valid letter."
+                    try_guess=check[1]
+                    warning=check[0]
+                    print("Oops!",warn,check[2],get_guessed_word(secret_word, rayn))
                     print("-"*24)
             if try_guess<=0 or is_word_guessed(secret_word, rayn)==True:
                 break
@@ -148,5 +151,6 @@ def hangman_with_hints():
         elif try_guess<=0 and is_word_guessed(secret_word, rayn)!=True:
             print("Sorry, you ran out of guesses. The word was", secret_word)
             revanche()
+
 print("Welcome to the game Hangman!")
 hangman_with_hints()
