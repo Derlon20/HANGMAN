@@ -65,6 +65,9 @@ def match_with_gaps(my_word, other_word):
         if let.isalpha():
                 if kitty[timing]!=other_word[timing]:
                     return False
+        elif let=="_":
+                if other_word[timing] in kitty:
+                    return False
         timing+=1
     return True
 
@@ -99,9 +102,9 @@ def revanche():
         raise SystemExit
 
 def hangman_with_hints():
-    secret_word=choose_word(wordlist)
-    #secret_word="revering"
-    #print(secret_word)
+    #secret_word=choose_word(wordlist)
+    secret_word="ample"
+    print(secret_word)
     print("I am thinking of a word that is", len(secret_word),"letters long.")
     print("You have 3 warnings left.")
     slot = list(secret_word.lower())
