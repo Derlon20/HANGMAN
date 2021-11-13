@@ -102,9 +102,9 @@ def revanche():
         raise SystemExit
 
 def hangman_with_hints():
-    #secret_word=choose_word(wordlist)
-    secret_word="ample"
-    print(secret_word)
+    secret_word=choose_word(wordlist)
+    #secret_word="ample"
+    #print(secret_word)
     print("I am thinking of a word that is", len(secret_word),"letters long.")
     print("You have 3 warnings left.")
     slot = list(secret_word.lower())
