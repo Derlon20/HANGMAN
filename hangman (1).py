@@ -30,10 +30,9 @@ def choose_word(wordlist):
 #print(secret_word)
 
 def is_word_guessed(secret_word, guessy):
-    slot = list(secret_word.lower())
     count=0
     lobby = ''.join(guessy)
-    for i in slot:
+    for i in secret_word:
         if i in lobby.lower():
             count+=1
         else:
@@ -42,9 +41,8 @@ def is_word_guessed(secret_word, guessy):
 #print(is_word_guessed(secret_word, letters_guessed))
 
 def get_guessed_word(secret_word, ryan):
-    slot = list(secret_word.lower())
     guessy = ""
-    for j in slot:
+    for j in secret_word:
       if j in ryan:
         guessy += j
       else:
@@ -96,7 +94,6 @@ def hangman(secret_word):
     #print(secret_word)
     print("I am thinking of a word that is", len(secret_word),"letters long.")
     print("You have 3 warnings left.")
-    slot = list(secret_word.lower())
     vw = ['a','e','u','i','o']
     try_guess=6
     rayn=[]
@@ -111,10 +108,10 @@ def hangman(secret_word):
 
             if letter in set(string.ascii_lowercase) and len(letter)==1 and letter not in rayn:
                 rayn.append(letter)
-                if letter in slot:
+                if letter in secret_word:
                     print("Good guess:",get_guessed_word(secret_word, rayn))
                     rule1=False
-                elif letter not in slot:
+                elif letter not in secret_word:
                     if letter in vw:
                         try_guess-=2
                     elif letter not in vw:
@@ -144,7 +141,6 @@ def hangman_with_hints(secret_word):
     #print(secret_word)
     print("I am thinking of a word that is", len(secret_word),"letters long.")
     print("You have 3 warnings left.")
-    slot = list(secret_word.lower())
     vw = ['a','e','u','i','o']
     try_guess=6
     rayn=[]
@@ -162,10 +158,10 @@ def hangman_with_hints(secret_word):
             else:
                 if letter in set(string.ascii_lowercase) and len(letter)==1 and letter not in rayn:
                     rayn.append(letter)
-                    if letter in slot:
+                    if letter in secret_word:
                         print("Good guess:",get_guessed_word(secret_word, rayn))
                         rule1=False
-                    elif letter not in slot:
+                    elif letter not in secret_word:
                         if letter in vw:
                             try_guess-=2
                         elif letter not in vw:
