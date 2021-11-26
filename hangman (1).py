@@ -76,8 +76,11 @@ def show_possible_matches(my_word):
     for guest in wordlist:
         if match_with_gaps(my_word, guest)==True:
             match.append(guest)
-    mathcy=" ".join(match)
-    return mathcy
+    if len(match)==0:
+        return("No matches found")
+    else:
+        mathcy=" ".join(match)
+        return mathcy
 
 def check_warning(warning, try_guess):
     if warning>0:
@@ -88,21 +91,7 @@ def check_warning(warning, try_guess):
         alert="You have no warnings left, so you lose one guess:"
     return (warning, try_guess, alert)
 
-def revanche():
-    print("="*24)
-    revanche = input("That was not that bad after all. What about revanche? \nEnter '+', if you`re not a scaredy-cat. \nEnter '-', if your guts are already out: ")
-    while revanche != "+" and revanche!= "-":
-        revanche = input("Young and clumsy? Awkward, strange? Could you hear what I just said?\nError. Enter your answer again:")
-    if revanche == "+":
-        print("\nOkay, here we go")
-        print("="*24)
-        hangman_with_hints()
-    elif revanche == "-":
-        print("\nIt`s time to stop!")
-        raise SystemExit
-
-def hangman():
-    secret_word=choose_word(wordlist)
+def hangman(secret_word):
     #secret_word="ample"
     #print(secret_word)
     print("I am thinking of a word that is", len(secret_word),"letters long.")
@@ -147,13 +136,10 @@ def hangman():
         if is_word_guessed(secret_word, rayn)==True and try_guess>0:
             print("-"*24)
             print("Congratulations, you won! Your total score for this game is:", len(set(secret_word))*try_guess)
-            revanche()
         elif try_guess<=0 and is_word_guessed(secret_word, rayn)!=True:
             print("Sorry, you ran out of guesses. The word was", secret_word)
-            revanche()
 
-def hangman_with_hints():
-    secret_word=choose_word(wordlist)
+def hangman_with_hints(secret_word):
     #secret_word="ample"
     #print(secret_word)
     print("I am thinking of a word that is", len(secret_word),"letters long.")
@@ -201,10 +187,9 @@ def hangman_with_hints():
         if is_word_guessed(secret_word, rayn)==True and try_guess>0:
             print("-"*24)
             print("Congratulations, you won! Your total score for this game is:", len(set(secret_word))*try_guess)
-            revanche()
         elif try_guess<=0 and is_word_guessed(secret_word, rayn)!=True:
             print("Sorry, you ran out of guesses. The word was", secret_word)
-            revanche()
 
-print("Welcome to the game Hangman!")
-hangman_with_hints()
+if __name__ == "__main__":
+    secret_word = choose_word(wordlist)
+    hangman_with_hints(secret_word)
